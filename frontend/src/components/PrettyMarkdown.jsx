@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import {motion, useScroll} from 'motion/react';
 
 function cleanExplanation(text) {
   return text
@@ -22,9 +23,11 @@ export default function PrettyMarkdown({ text }) {
   const cleaned = cleanExplanation(text);
   const formatted = formatExplanation(cleaned);
 
+  const {scrollYProgress} = useScroll();
+
   return (
-    <div className="prose max-w-none p-4 bg-white rounded-lg shadow">
+    <motion.div style={{scaleX: scrollYProgress}} className="prose leading-7 [&[&:not(:first-child)]:mt-6] max-w-none text-white p-4 bg-neutral-800 rounded-lg shadow">
       <ReactMarkdown>{formatted}</ReactMarkdown>
-    </div>
+    </motion.div>
   );
 }
