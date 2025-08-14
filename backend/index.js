@@ -12,5 +12,4 @@ app.use(cors());
 app.use('/', AiRouter);
 app.use('/code', ExeRouter);
 
-// ✅ Instead of app.listen, export default for Vercel
-export default app;
+app.listen(3000, console.log("Server is running....."))

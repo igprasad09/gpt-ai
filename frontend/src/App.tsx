@@ -27,7 +27,7 @@ function App() {
       return alert("Enter some query");
     }
     setLoading(true);
-    const response = await fetch("gpt-ai-green.vercel.app/", {
+    const response = await fetch("http://localhost:3000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt: input }),
