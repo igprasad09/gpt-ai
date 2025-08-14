@@ -27,7 +27,7 @@ function App() {
       return alert("Enter some query");
     }
     setLoading(true);
-    const response = await fetch("http://localhost:3000/", {
+    const response = await fetch("https://gpt-ai-mauve.vercel.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt: input }),
@@ -86,7 +86,7 @@ function App() {
   function handle_exicution(){
       setActive('run');
       setOutput('Exicuting.......................👁')
-      axios.post("http://localhost:3000/code/exe",{
+      axios.post("https://gpt-ai-mauve.vercel.app/code/exe",{
            code,
            language: lang
       }).then((res)=>{

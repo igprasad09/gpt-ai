@@ -19,7 +19,7 @@ routes.post("/", async (req, res) => {
       text += chunk.text || "";
     }
 
-    res.status(200).send(text); // ✅ Ends properly
+    res.status(200).send(text); 
   } catch (err) {
     console.error(err);
     res.status(500).send("Error generating content");
