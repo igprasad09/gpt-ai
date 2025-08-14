@@ -19,4 +19,8 @@ routes.post("/", async (req, res) => {
   res.write(text);
 });
 
+routes.get("/test",(req,res)=>{
+      res.send("Working");
+})
+
 export default routes;
