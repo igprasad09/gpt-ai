@@ -7,17 +7,25 @@ dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GenAiKey });
 
 routes.post("/", async (req, res) => {
-   const {prompt} = req.body;
-  const response = await ai.models.generateContentStream({
-    model: "gemini-2.0-flash",
-    contents: prompt,
-  });
-  let text = "";
-  for await (const chunk of response) {
-    text += chunk.text;
+  try {
+    const { prompt } = req.body;
+    const response = await ai.models.generateContentStream({
+      model: "gemini-2.0-flash",
+      contents: prompt,
+    });
+
+    let text = "";
+    for await (const chunk of response) {
+      text += chunk.text || "";
+    }
+
+    res.status(200).send(text); // ✅ Ends properly
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error generating content");
   }
-  res.write(text);
 });
+
 
 routes.get("/test",(req,res)=>{
       res.send("Working");
