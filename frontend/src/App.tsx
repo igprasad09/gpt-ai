@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { Light as LightSyntaxHighlighter } from "react-syntax-highlighter";
-import curl from "highlightjs-curl";
+import { useEffect, useRef, useState } from "react";
 import PrettyMarkdown from "./components/PrettyMarkdown.jsx";
 import { Input } from "./components/ui/input.js";
 import "./App.css";
@@ -10,16 +7,20 @@ import { Loader2Icon } from "lucide-react";
 import { motion, useScroll } from "motion/react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
+import { WavyBackground } from "./components/ui/wavy-background.js";
 
 function App() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [input, setInput] = useState("Calculating the factorial of 9 in C");
+  const [input, setInput] = useState("");
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [explanation, setExplanation] = useState("");
   const [lang, setLang] = useState("");
   const [active, setActive] = useState('code');
+  const [isFullHeight, setIsFullHeight] = useState(false);
+
+  const divRef = useRef(null);
 
   const handle_Submition = async () => {
     if (input.trim() === "") {
@@ -97,31 +98,51 @@ function App() {
   function display_code(){
       setActive('code');
   }
+
+  useEffect(()=>{
+       function checkHeight() {
+      if (divRef.current) {
+        const divHeight = divRef.current.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        // If div height >= viewport height → set full height state
+        setIsFullHeight(divHeight >= viewportHeight);
+      }
+    }
+
+    checkHeight(); // initial check
+    window.addEventListener("resize", checkHeight);
+
+    return () => window.removeEventListener("resize", checkHeight);
+  },[code,explanation])
   return (
     <>
       <div
-        className={` h-screen overflow-hidden bg-black w-screen flex justify-center ${
+        className={`relative h-screen overflow-hidden bg-black w-screen flex justify-center ${
           code ? "" : ""
         }`}
       >
+        <WavyBackground className="absolute inset-0 -z-10 pointer-events-none"/>
         <motion.div
+          ref={divRef}
           className={`${code ? "w-[50%]" : "w-[70%]"}   ${
             explanation
-              ? " overflow-y-scroll scrollbar-custom"
-              : "overflow-x-hidden overflow-y-hidden mt-auto mb-auto"
-          }`}
+              ? " overflow-y-scroll scrollbar-custom "
+              : "overflow-x-hidden overflow-y-hidden   mt-auto mb-auto"
+          } ${isFullHeight?"":"mt-auto mb-auto"}`}
         >
-          <section className="p-2 text-sm leading-relaxed bg-zinc-700 rounded-xl shadow-md prose">
-            <div className="flex">
+          <section className="p-2 relative text-sm leading-relaxed bg-zinc-700 rounded-xl shadow-md prose">
+            <div className="flex relative">
               <Input
                 type="text"
+                className="relative"
                 placeholder="Enter you Query.."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
               {loading ? (
-                <Button variant={"outline"}>
-                  <Loader2Icon className="animate-spin" />
+                <Button variant={"outline"} className="mb-3 ml-4">
+                  <Loader2Icon className="animate-spin " />
                   Thinking....
                 </Button>
               ) : (
@@ -143,7 +164,7 @@ function App() {
         </motion.div>
 
         {code && (
-          <div className="bg-black w-[50%] h-full">
+          <div className="bg-black relative w-[50%] h-full">
             <div className="flex m-1">
               <Button
                 variant={"ghost"}
