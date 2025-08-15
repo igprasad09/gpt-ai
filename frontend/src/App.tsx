@@ -118,7 +118,7 @@ function App() {
   return (
     <>
       <div
-        className={`relative h-screen overflow-hidden bg-black w-screen flex justify-center ${
+        className={`relative h-screen  bg-black w-screen flex justify-center ${
           code ? "" : ""
         }`}
       >
@@ -164,7 +164,7 @@ function App() {
         </motion.div>
 
         {code && (
-          <div className="bg-black relative w-[50%] h-full overflow-scroll">
+          <div className="bg-black relative w-[50%] h-full overflow-y-scroll">
             <div className="flex m-1">
               <Button
                 variant={"ghost"}
@@ -214,14 +214,14 @@ function App() {
               </Button>
             </div>
             <Editor
-              height={"100%"}
+              height={"95%"}
               value={active=="code"? code : output}
               language={lang}
               onChange={(value) => setCode(value || "")}
               theme="vs-dark"
               options={{
                 fontSize: 14,
-                minimap: { enable: false },
+                minimap: { enabled: false },
                 scrollBeyondLastLine: false,
               }}
             />
