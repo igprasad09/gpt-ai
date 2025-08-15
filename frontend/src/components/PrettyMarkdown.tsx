@@ -1,8 +1,7 @@
-import React from "react";
 import ReactMarkdown from "react-markdown";
 import {motion, useScroll} from 'motion/react';
 
-function cleanExplanation(text) {
+function cleanExplanation(text: string) {
   return text
     .replace(/\*\*/g, "**")       // normalize bold markers
     .replace(/\n\s*\n/g, "\n\n")  // remove extra blank lines
@@ -10,7 +9,7 @@ function cleanExplanation(text) {
     .trim();
 }
 
-function formatExplanation(text) {
+function formatExplanation(text: string) {
   return text
     .split(/(?=\d+\s)/) // split at numbered steps (1, 2, 3...)
     .map(line => line.trim())
@@ -19,7 +18,7 @@ function formatExplanation(text) {
     .join("\n");
 }
 
-export default function PrettyMarkdown({ text }) {
+function PrettyMarkdown({ text }:{text:string}) {
   const cleaned = cleanExplanation(text);
   const formatted = formatExplanation(cleaned);
 
@@ -31,3 +30,6 @@ export default function PrettyMarkdown({ text }) {
     </motion.div>
   );
 }
+
+export {PrettyMarkdown}
+

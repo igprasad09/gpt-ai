@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import PrettyMarkdown from "./components/PrettyMarkdown.jsx";
+import {PrettyMarkdown} from './components/PrettyMarkdown.js'
 import { Input } from "./components/ui/input.js";
 import "./App.css";
 import { Button } from "./components/ui/button.js";
 import { Loader2Icon } from "lucide-react";
-import { motion, useScroll } from "motion/react";
+import { motion } from "motion/react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
 import { WavyBackground } from "./components/ui/wavy-background.js";
@@ -20,7 +20,7 @@ function App() {
   const [active, setActive] = useState('code');
   const [isFullHeight, setIsFullHeight] = useState(false);
 
-  const divRef = useRef(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handle_Submition = async () => {
     if (input.trim() === "") {
@@ -33,7 +33,7 @@ function App() {
       body: JSON.stringify({ prompt: input }),
     });
 
-    const reader = response.body?.getReader();
+    const reader = response.body!.getReader();
     const decoder = new TextDecoder();
     setMessage(""); // clear previous
 
@@ -164,7 +164,7 @@ function App() {
         </motion.div>
 
         {code && (
-          <div className="bg-black relative w-[50%] h-full">
+          <div className="bg-black relative w-[50%] h-full overflow-scroll">
             <div className="flex m-1">
               <Button
                 variant={"ghost"}
