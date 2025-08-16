@@ -24,6 +24,8 @@ function PrettyMarkdown({ text }:{text:string}) {
 
   const {scrollYProgress} = useScroll();
 
+  console.log("prettymarkdown.tsx")
+
   return (
     <motion.div style={{scaleX: scrollYProgress}} className="prose leading-7 [&[&:not(:first-child)]:mt-6] max-w-none text-white p-4 bg-neutral-800 rounded-lg shadow">
       <ReactMarkdown>{formatted}</ReactMarkdown>
