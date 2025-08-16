@@ -25,7 +25,6 @@ function CodeBlock() {
       })
   }
  
-  console.log("codeBlock.tsx")
 
   return (
     <div className="bg-black relative w-[50%] h-full overflow-y-scroll">

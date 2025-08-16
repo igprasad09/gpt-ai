@@ -74,7 +74,6 @@ function Explancation() {
       return () => window.removeEventListener("resize", checkHeight);
     },[code,explanation])
 
-    console.log("explaintion.tsx")
 
   return (
     <motion.div

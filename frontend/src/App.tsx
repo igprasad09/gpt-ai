@@ -8,7 +8,7 @@ import CodeBlock from "./components/CodeBlock.js";
 
 function App() {
   const code = useRecoilValue(codeAtom);
-  console.log("app.tsx")
+  
   return (
     <>
       <div className={`relative h-screen  bg-black w-screen flex justify-center`}>

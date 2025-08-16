@@ -31,7 +31,6 @@ function CodeSeperator() {
    
   }, [message]);
 
-  console.log("codeseperator.tsx")
 
   return (
     <div>
